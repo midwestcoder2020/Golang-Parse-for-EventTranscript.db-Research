@@ -1,104 +1,75 @@
-![logo](img/logo.png)
+# EventTranscript Parser
 
-### About
+**EventTranscriber** is a Golang tool to extract forensics data from Eventranscript.db (Windows Activity Timeline).
 
-**EventTranscriptParser** is python based tool to extract forensically useful details from EventTranscript.db (Windows Diagnostic Database).
+The database is located at `C:\ProgramData\Microsoft\Diagnosis\EventTranscript\EventTranscript.db`.
 
-The database is found in Windows 10 systems and present at `C:\ProgramData\Microsoft\Diagnosis\EventTranscript\EventTranscript.db`.
+## This tool currently parses the following data from Eventrnscript.db:
+    * Microsoft Edge browsing history
+    * application inventory
+    * Wireless scan results.
+    * successful WiFi connection events
+    * User's default preferences (Video player, default browser etc...)
+    * SRUM information
+    * Application execution
+    * Application network usage
+    * Application execution activity
 
-The tool currently supports the following features.
+## Requirements
 
-+ Extracts Microsoft Edge browsing history
-+ Extracts application inventory
-+ Extracts Wireless scan results.
-+ Extracts successful WiFi connection events
-+ Extracts User's default preferences (Video player, default browser etc...)
-+ Extracts SRUM information
-    + Application execution
-    + Application network usage
-+ Extracts Application execution activity
+Golang 1.26
 
-### Requirements
+## Dependencies
 
-Python 3.8 or above. The older versions of Python 3.x should work fine as well.
+These are the required golang libraries needed to run this script.
 
-#### Dependencies
-
-These are the required python libraries/modules needed to run the script
-
-+ json
-+ os
-+ sqlalchemy
 + csv
-+ argparse
++ os
++ sql
 
-All the above modules are available by default in python3. Incase one or the other is missing, you can install by
+## Usage
 
-```
-pip install <package-name>
-```
+This is a CLI based tool.
+### Supports:
+    Golang
 
-### Usage
+### Golang
 
-**Tip**: Before running the tool against the database, make sure that the **-wal (Write Ahead Log)** file data is merged with the original database. Because you might miss out on crucial/juicy data.
-
-The tool is completely CLI based and there are 2 ways to use it.
-
-#### Using Python
-
-```python
-python3 EventTranscriptParser.py -f <Path-To-EventTranscript.db> -o <Path-To-Output-Directory>
-```
-![usage](img/usage.png)
-
-
-To view help,
-```
-python3 EventTranscriptParser.py -h
+may need to install sqlite library
+listed in go.mod file
+```bash
+go mod tidy
 ```
 
-![help](img/help.png)
-
-#### Using Executable
-
-If you do not have python pre-installed in you system or have issues with the running the script, you can use the compiled executable. The executable is also CLI based.
-
-Download the executable from https://github.com/stuxnet999/EventTranscriptParser/releases
-
-```sh
-.\EventTranscriptParser.exe -f .\EventTranscript.db -o .\CSV-Output\
+```bash
+go build .
+$ ./main <program> <db> <output_location>
 ```
 
-The executable was compiled using `pyinstaller`.
+or
 
-#### Compiling on your own
-
-If you wish to compile on your own, use the commands below in any command prompt/terminal window.
-
-```sh
-pip install pyinstaller
-pyinstaller --onefile EventTranscriptParser.py
+```bash
+$ .go run . <program> <db> <output_location>
 ```
+![](gorun.png)
 
-You will find the compiled executable in the `dist` directory.
 
-### Demo video
+Running Example
+![](gorunfull.png)
 
-Here is a demo video of the usage of the tool.
 
-https://github.com/stuxnet999/EventTranscriptParser/assets/31406812/005aa288-0250-4143-aabf-7d711090ef83
+## References
 
-### Acknowledgements
+Here are some of the resources referred while making this tool.
 
-This tool wouldn't have been possible without the excellent research & hard work put in by my colleagues [Andrew Rathbun](https://twitter.com/bunsofwrath12) & [Josh Mitchell](https://www.linkedin.com/in/josh-mitchell-0990ba6a/) in investigating the Windows Diagnostic Data.
+This tool wouldn't have been possible without the excellent research & hard work put in by my colleagues Andrew Rathbun & Josh Mitchell in investigating the Windows Diagnostic Data.
 
 Read more about their research here - https://github.com/rathbuna/EventTranscript.db-Research
 
 Follow the investigative series at Kroll on EventTranscript.db - https://www.kroll.com/en/insights/publications/cyber/forensically-unpacking-eventtranscript
 
-### Author
+Thanks to everyone for making their research public, this tool wouldn't be possible with out that.
 
-Abhiram Kumar
+## Author 👥
 
-+ Twitter: [@_abhiramkumar](https://www.twitter.com/_abhiramkumar)
-+ Personal blog: https://stuxnet999.github.io
+mwcsur@gmail.com
