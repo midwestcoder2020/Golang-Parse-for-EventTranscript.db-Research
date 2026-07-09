@@ -24,7 +24,7 @@ Golang 1.26
 These are the required golang libraries needed to run this script.
 
 + csv
-+ os
++ json
 + sql
 
 ## Usage
